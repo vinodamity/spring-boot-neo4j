@@ -9,8 +9,8 @@
 		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
 
-	<groupId>com.impetus.bigdata.rtb</groupId>
-	<artifactId>C7-Neo4j-Empl-Hierarchy</artifactId>
+	<groupId>com.java.springboot.neo4j</groupId>
+	<artifactId>employee-hierarchy</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>jar</packaging>
 	<name>spring-boot-neo4j-employee-search</name>

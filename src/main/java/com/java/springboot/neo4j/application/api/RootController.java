@@ -1,4 +1,4 @@
-package com.impetus.bigdata.rtb.application.api;
+package com.java.springboot.neo4j.application.api;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;

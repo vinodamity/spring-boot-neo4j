@@ -1,11 +1,11 @@
-package com.impetus.bigdata.rtb.application.repository;
+package com.java.springboot.neo4j.application.repository;
 
 import java.util.List;
 
 import org.springframework.data.neo4j.repository.Neo4jRepository;
 import org.springframework.stereotype.Repository;
 
-import com.impetus.bigdata.rtb.application.data.Employee;
+import com.java.springboot.neo4j.application.data.Employee;
 
 @Repository
 public interface EmployeeRepository extends Neo4jRepository<Employee, Long> {

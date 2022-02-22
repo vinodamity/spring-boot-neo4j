@@ -1,4 +1,4 @@
-package com.impetus.bigdata.rtb.application.data;
+package com.java.springboot.neo4j.application.data;
 
 import org.springframework.data.neo4j.core.schema.Id;
 import org.springframework.data.neo4j.core.schema.Node;

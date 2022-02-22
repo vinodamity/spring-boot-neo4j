@@ -1,12 +1,12 @@
-package com.impetus.bigdata.rtb.application.service;
+package com.java.springboot.neo4j.application.service;
 
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.impetus.bigdata.rtb.application.data.Employee;
-import com.impetus.bigdata.rtb.application.repository.EmployeeRepository;
+import com.java.springboot.neo4j.application.data.Employee;
+import com.java.springboot.neo4j.application.repository.EmployeeRepository;
 
 @Service
 public class EmployeeSearchService {

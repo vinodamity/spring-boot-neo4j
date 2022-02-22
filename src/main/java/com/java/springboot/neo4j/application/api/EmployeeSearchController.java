@@ -1,4 +1,4 @@
-package com.impetus.bigdata.rtb.application.api;
+package com.java.springboot.neo4j.application.api;
 
 import java.util.List;
 
@@ -8,8 +8,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.impetus.bigdata.rtb.application.data.Employee;
-import com.impetus.bigdata.rtb.application.service.EmployeeSearchService;
+import com.java.springboot.neo4j.application.data.Employee;
+import com.java.springboot.neo4j.application.service.EmployeeSearchService;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
