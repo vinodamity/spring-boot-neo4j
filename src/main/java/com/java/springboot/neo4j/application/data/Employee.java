@@ -4,31 +4,33 @@ import org.springframework.data.neo4j.core.schema.Id;
 import org.springframework.data.neo4j.core.schema.Node;
 import org.springframework.data.neo4j.core.schema.Property;
 
-
 @Node
 public class Employee {
 	@Property
 	private String name;
 
-	@Id @Property
-	private Long empid;
-	
+	@Id
+	@Property
+	private Long empId;
+
 	@Property
 	private String city;
-	
+
 	@Property
 	private String gender;
-	
+
 	@Property
 	private String skill;
-	
+
 	@Property
 	private String designation;
+	
+	public Employee(){}
 
-	public Employee(String name, Long empid, String city, String gender, String skill, String designation) {
+	public Employee(String name, Long empId, String city, String gender, String skill, String designation) {
 		super();
 		this.name = name;
-		this.empid = empid;
+		this.empId = empId;
 		this.city = city;
 		this.gender = gender;
 		this.skill = skill;
@@ -43,12 +45,12 @@ public class Employee {
 		this.name = name;
 	}
 
-	public Long getEmpid() {
-		return empid;
+	public Long getEmpId() {
+		return empId;
 	}
 
-	public void setEmpid(Long empid) {
-		this.empid = empid;
+	public void setEmpId(Long empId) {
+		this.empId = empId;
 	}
 
 	public String getCity() {
@@ -82,5 +84,11 @@ public class Employee {
 	public void setDesignation(String designation) {
 		this.designation = designation;
 	}
-	
+
+	@Override
+	public String toString() {
+		return "Employee [name=" + name + ", empId=" + empId + ", city=" + city + ", gender=" + gender + ", skill="
+				+ skill + ", designation=" + designation + "]";
+	}
+
 }
