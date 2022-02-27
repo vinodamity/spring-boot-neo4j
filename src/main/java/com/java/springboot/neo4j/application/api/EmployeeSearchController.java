@@ -7,6 +7,7 @@ import java.util.Set;
 
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -70,11 +71,38 @@ public class EmployeeSearchController {
 	public String addRelationshipTo(@RequestBody Map<Long, String> reportees, Long SupervisorEmpId) {
 		return addRelationshipToSupervisor(reportees.keySet(), SupervisorEmpId);
 	}
+	
+	@ApiOperation(value = "Get hierarchy path between two employees")
+	@GetMapping("/hierarchy/between/{fromEmpId}/to/{toEmpId}")
+	public List<Employee> getHierarchyPathBtwEmployee(@PathVariable("fromEmpId") Long fromEmpId, @PathVariable("toEmpId") Long toEmpId) {
+		return employeeSearchService.getHierarchyPathBtwEmployee(fromEmpId, toEmpId);
+	}
+	
+	@ApiOperation(value = "Graph traversal query to identify the direct reportees for a supervisor")
+	@GetMapping("/direct/reportees/of/{empId}")
+	public List<Employee> getDirectReporteeOfAnEmpId(@PathVariable("empId") Long empId) {
+		List<Employee> r=  employeeSearchService.getDirectReporteeOfAnEmpId(empId);
+		return r;
+	}
+	
+	@ApiOperation(value = "Graph traversal query to identify the indirect reportee")
+	@GetMapping("/indirect/reportees/of/{empId}")
+	public List<Employee> getIndirectReporteeOfAnEmpId(@PathVariable("empId") Long empId) {
+		List<Employee> r=  employeeSearchService.getIndirectReporteeOfAnEmpId(empId);
+		return r;
+	}
+	
 
 	@ApiOperation(value = "Delete an employee and its associated relationship from heirarchy")
-	@PostMapping("/delete/employee")
+	@DeleteMapping("/delete/employee")
 	public String deleteEmployee(@RequestBody Map<Long, String> reportees) {
 		return deleteEmployee(reportees.keySet());
+	}
+	
+	@ApiOperation(value = "Modify the relationship of an existing employee and map to another supervisor in org. hierarchy")
+	@PostMapping("/update/relationship/employee/{empId}/{existing_supervisorid}/{new_supervisorid}")
+	public String updateHierarchyOfEmployee(@PathVariable("empId") Long empId, @PathVariable("existing_supervisorid") Long existing_supervisorid, @PathVariable("new_supervisorid") Long new_supervisorid) {
+		return employeeSearchService.updateHierarchyOfEmployee(empId, existing_supervisorid, new_supervisorid);
 	}
 
 	private String addRelationshipToSupervisor(Set<Long> reporteesEmpId, Long supervisorEmpId) {

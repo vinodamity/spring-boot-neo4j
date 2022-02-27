@@ -82,4 +82,46 @@ public interface EmployeeRepository extends Neo4jRepository<Employee, Long> {
 	 */
 	@Query("" + "MATCH (e:Employee {empId:$empId}) " + "DETACH " + "DELETE e")
 	void deleteEmployeeWithAllRelationship(@Param("empId") Long empId);
+
+	
+	/**
+	 * Get the Hierarchy path between two employee
+	 * 
+	 * @param fromEmpId
+	 * @param toEmpId
+	 * @return 
+	 */
+	@Query("" + "MATCH path=shortestPath((e1:Employee{empId:$fromEmpId}) -[*]- (e2:Employee{empId:$toEmpId})) RETURN collect(path)")
+	List<Employee> getHierarchyPathBtwEmployee(@Param("fromEmpId") Long fromEmpId, @Param("toEmpId") Long toEmpId);
+
+	/**
+	 * Graph traversal query to identify the direct reportees for a supervisor
+	 * 
+	 * @param empId
+	 * @return
+	 */
+	@Query("" + "MATCH(e:Employee) -[r:REPORT_TO] -> (e1:Employee{empId:$empId}) RETURN e")
+	List<Employee> getDirectReporteeOfAnEmpId(@Param("empId") Long empId);
+
+	/**
+	 * Graph traversal query to identify the indirect reportee
+	 * 
+	 * @param empId
+	 * @return
+	 */
+	@Query("" + "MATCH(e:Employee)-[:REPORT_TO*2..]->(e1:Employee{empId:$empId}) RETURN e")
+	List<Employee> getIndirectReporteeOfAnEmpId(@Param("empId") Long empId);
+
+	/**
+	 * Update the relationship of an employee
+	 * 
+	 * @param empId
+	 * @param existing_supervisorid
+	 * @param new_supervisorid
+	 * @return
+	 */
+	@Query("" + "MATCH(e1)-[r1:REPORT_TO]->(e2), (e3) WHERE e1.empId = $empId AND e2.empId = $existing_supervisorid and e3.empId=$new_supervisorid CREATE (e1)-[r2:REPORT_TO]->(e3) SET r2=r1 DELETE r1")
+	String updateHierarchyOfEmployee(@Param("empId") Long empId, @Param("existing_supervisorid") Long existing_supervisorid, @Param("new_supervisorid") Long new_supervisorid);
+	
+	
 }

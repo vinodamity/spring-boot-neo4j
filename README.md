@@ -11,6 +11,7 @@ spring-boot-neo4j project is about to Spring Boot integration with Neo4j with CR
 	7.[Introduction of Cypher Query Examples](#Introduction of Cypher Query Examples)
 	8.[Rest resources details and description](#Rest resources details and description)
 	9.[Spring Boot Implementation](#Spring Boot Implementation)
+	10.[Application access from Swagger UI](#Application access from Swagger UI)
 	
 	
 ## Prerequisites
@@ -120,7 +121,7 @@ After populating the data in database, we can validate the data by using Cypher 
 	1. Graph traversal query to return all nodes from database with existing relationships.<br />
 	   MATCH(e) <br />
 	   RETURN e <br />
-	2. Graph traversal query to dentify the direct reportees for a supervisor<br />
+	2. Graph traversal query to identify the direct reportees for a supervisor<br />
 	   MATCH(e:Employee) -[r:REPORT_TO] -> (e1:Employee{name:'Manoj Vashitha'}) <br />
 	   RETURN e<br />
 	3. Graph traversal query to identify the indirect reportee<br />
@@ -130,7 +131,7 @@ After populating the data in database, we can validate the data by using Cypher 
 	   MATCH(e:Employee{name:'Manoj Vashitha'})<br />
 	   RETURN e.empId,e.name,e.city, ...<br />
     5. Get the Hierarchy path between two employee<br />
-       MATCH path=shortestPath((e1:Employee{name:'Vinod Kumar Singh'}) -[*]- (e2:Employee{name:'Ramesh Singh'})<br />
+       MATCH path=shortestPath((e1:Employee{name:'Vinod Kumar Singh'}) -[*]- (e2:Employee{name:'Ramesh Singh'}))<br />
        RETURN path<br />
     6. Get the team size (including in direct reportees) of a supervisor<br />
        MATCH(e:Employee) -[:REPORT_TO*..] -> (e1:Employee{name:'Manoj Vashitha'})<br />
@@ -153,8 +154,13 @@ EmployeeSearchController.java (Single controller class having different resource
 	/searchby/city/{city}     -  Search all employees by city name
 	/searchby/gender/{gender} -  Search all employees by gender
 	/add/new				        -  Add new employee(s) and relationship to an existing employee as supervisor
-	/delete/employee		     -  Delete an employee and its associated relationship from heirarchy
+	/delete/employee		     -  Delete an employee and its associated relationship from hierarchy
+	/hierarchy/between/{fromEmpId}/to/{toEmpId} - Get hierarchy path between two employees
+	/direct/reportees/of/{empId} - Graph traversal query to identify the direct reportees for a supervisor
+	/indirect/reportees/of/{empId} - Graph traversal query to identify the indirect reportee
 	/add/relationship/for/reportees/to/supervisor  - Add a relationship for an existing employee to existing supervisor
+	/update/relationship/employee/{empId}/{existing_supervisorid}/{new_supervisorid} - Modify the relationship of an existing employee 																											   and map to another supervisor in org. hierarchy
+	
 	 
 	 
 ## Spring Boot Implementation
@@ -171,5 +177,11 @@ Packages: <br />
 		com.java.springboot.neo4j.application.data - Contains pojo or entity class<br />
 		com.java.springboot.neo4j.application.service - Contains service classes<br />
 		com.java.springboot.neo4j.application.repository - Contains JPA repository classes<br />
+
+
+## Application access from Swagger UI
+
+Swagger is already implemented and we can access via - http://localhost:8080/
+
 	
 	

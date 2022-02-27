@@ -52,4 +52,20 @@ public class EmployeeSearchService {
 		employeeRepository.deleteEmployeeWithAllRelationship(empId);
 	}
 
+	public List<Employee> getHierarchyPathBtwEmployee(Long fromEmpId, Long toEmpId) {
+		return employeeRepository.getHierarchyPathBtwEmployee(fromEmpId, toEmpId);
+	}
+
+	public List<Employee> getDirectReporteeOfAnEmpId(Long empId) {
+		return employeeRepository.getDirectReporteeOfAnEmpId(empId);
+	}
+
+	public List<Employee> getIndirectReporteeOfAnEmpId(Long empId) {
+		return employeeRepository.getIndirectReporteeOfAnEmpId(empId);
+	}
+
+	public String updateHierarchyOfEmployee(Long empId, Long existing_supervisorid, Long new_supervisorid) {
+		return employeeRepository.updateHierarchyOfEmployee(empId, existing_supervisorid, new_supervisorid);
+	}
+
 }
